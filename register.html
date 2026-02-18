@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMS - Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<center>  
+    <fieldset>
+             <div class="logo">
+        <h2><img src="signal-status.png" class="log">   SIMS|<p>Stock Inventory <br>Management System</p></h2>
+        
+    </div>
+         
+<div class="card" >
+  
+    <h3>Create New Account</h3>
+    <div style="margin-bottom: 40px;">_______________________________________</div>
+
+    <form id="registerForm">
+
+       <label class="name"> <img src="user.png"  class="icon"> Full Name</label>
+        <div class="input-group">
+            <img src="user.png" class="icon  ">
+          <input type="text" id="fullname" placeholder="Enter your full name" required>
+        </div>
+
+        <label class="email"> <img src="envelope.png"  class="icon"> Email Address</label>
+        <div class="input-group">
+            <img src="envelope.png" class="icon">
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <label class="pass" > <img src="padlock.png"  class="icon"> Password</label>
+        <div class="input-group">
+            <img src="padlock.png" class="icon">
+            <input type="password" id="password" placeholder="Create a password" required>
+        </div>
+
+        <label > <img src="padlock.png"  class="icon"> Confirm Password</label>
+        <div class="input-group">
+            <img src="padlock.png" class="icon">
+            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+        </div>
+
+        <button type="submit">Register Account</button>
+        <div>__________________________________</div>
+
+    </form>
+
+    <p>Already have an account? <a href="login.html">Login</a></p>
+</div>
+     <div class="logo">
+
+
+</fieldset>
+</center>
+
+<script src="app.js"></script>
+</body>
+</html>

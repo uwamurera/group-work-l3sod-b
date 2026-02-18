@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIMS - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <div class="top-bar">
+        <h2>Welcome <span id="userName"></span></h2>
+        <button onclick="logout()" class="logout">Logout</button>
+    </div>
+
+    <div class="product-box">
+        <h3>Add Product</h3>
+
+        <input type="text" id="productName" placeholder="Product Name">
+        <input type="number" id="productQty" placeholder="Quantity">
+        <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <div class="table-box">
+        <h3>Product List</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="productTable"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
