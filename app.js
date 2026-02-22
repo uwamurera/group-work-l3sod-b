@@ -1,59 +1,8 @@
 // ================= REGISTER =================
-const registerForm = document.getElementById("registerForm");
 
-if (registerForm) {
-    registerForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const fullname = document.getElementById("fullname").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match");
-            return;
-        }
-
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        const exists = users.find(user => user.email === email);
-        if (exists) {
-            alert("User already exists");
-            return;
-        }
-
-        users.push({ fullname, email, password });
-        localStorage.setItem("users", JSON.stringify(users));
-
-        alert("Registration successful");
-        window.location.href = "login.html";
-    });
-}
 
 // ================= LOGIN =================
-const loginForm = document.getElementById("loginForm");
 
-if (loginForm) {
-    loginForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
-
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        const validUser = users.find(user => user.email === email && user.password === password);
-
-        if (!validUser) {
-            alert("Invalid email or password");
-            return;
-        }
-
-        localStorage.setItem("currentUser", JSON.stringify(validUser));
-        window.location.href = "dashboard.html";
-    });
-}
 
 // ================= DASHBOARD =================
 if (window.location.pathname.includes("dashboard.html")) {
@@ -117,4 +66,171 @@ function deleteProduct(index) {
     products.splice(index, 1);
     localStorage.setItem("products", JSON.stringify(products));
     displayProducts();
+}
+// Default 30 electronic products
+let defaultProducts = [];
+
+for(let i=1;i<=30;i++){
+    defaultProducts.push({
+        id:i,
+        name:"Electronic Product "+i,
+        category:"Electronics",
+        price: (100 + i) + "$",
+        stock: i % 2 === 0 ? 10 : 0,
+        image:"https://via.placeholder.com/200x150"
+    });
+}
+
+if(!localStorage.getItem("products")){
+    localStorage.setItem("products", JSON.stringify(defaultProducts));
+}
+
+let products = JSON.parse(localStorage.getItem("products"));
+
+// DASHBOARD COUNT
+if(document.getElementById("totalProducts")){
+    document.getElementById("totalProducts").innerText = products.length;
+    document.getElementById("inStock").innerText = products.filter(p=>p.stock>0).length;
+    document.getElementById("outStock").innerText = products.filter(p=>p.stock==0).length;
+}
+
+// DISPLAY PRODUCTS
+function displayProducts(list=products){
+    const grid = document.getElementById("productGrid");
+    if(!grid) return;
+
+    grid.innerHTML="";
+
+    list.forEach(product=>{
+        grid.innerHTML+=`
+            <div class="product-card">
+                <img src="${product.image}">
+                <h4>${product.name}</h4>
+                <p>${product.price}</p>
+                <p>${product.stock>0?"In Stock":"Out of Stock"}</p>
+            </div>
+        `;
+    });
+}
+
+displayProducts();
+
+// SEARCH
+function searchProduct(){
+    let value = document.getElementById("searchInput").value.toLowerCase();
+    let filtered = products.filter(p=>p.name.toLowerCase().includes(value));
+    displayProducts(filtered);
+}
+
+// ADD PRODUCT
+function addProduct(){
+    let name = prompt("Enter product name:");
+    let price = prompt("Enter price:");
+    let stock = prompt("Enter stock:");
+
+    if(name && price && stock){
+        let newProduct = {
+            id:products.length+1,
+            name:name,
+            category:"Electronics",
+            price:price+"$",
+            stock:Number(stock),
+            image:"https://via.placeholder.com/200x150"
+        };
+
+        products.push(newProduct);
+        localStorage.setItem("products", JSON.stringify(products));
+        displayProducts();
+        alert("Product Added Successfully!");
+    }
+}
+
+// LOGOUT
+function logout(){
+    alert("Logged out!");
+    window.location.href="login.html";
+}
+// Default 50 electronic products (30 + 20 added)
+let defaultProducts = [];
+
+for(let i=1;i<=50;i++){   // changed from 30 to 50
+    defaultProducts.push({
+        id:i,
+        name:"Electronic Product "+i,
+        category:"Electronics",
+        price: (100 + i) + "$",
+        stock: i % 2 === 0 ? 10 : 0,
+        image:"https://via.placeholder.com/200x150"
+    });
+}
+
+// Reset only if no products exist
+if(!localStorage.getItem("products")){
+    localStorage.setItem("products", JSON.stringify(defaultProducts));
+}
+
+let products = JSON.parse(localStorage.getItem("products"));
+
+// DASHBOARD COUNT
+if(document.getElementById("totalProducts")){
+    document.getElementById("totalProducts").innerText = products.length;
+    document.getElementById("inStock").innerText = products.filter(p=>p.stock>0).length;
+    document.getElementById("outStock").innerText = products.filter(p=>p.stock==0).length;
+}
+
+// DISPLAY PRODUCTS
+function displayProducts(list=products){
+    const grid = document.getElementById("productGrid");
+    if(!grid) return;
+
+    grid.innerHTML="";
+
+    list.forEach(product=>{
+        grid.innerHTML+=`
+            <div class="product-card">
+                <img src="${product.image}">
+                <h4>${product.name}</h4>
+                <p>${product.price}</p>
+                <p>${product.stock>0?"In Stock":"Out of Stock"}</p>
+            </div>
+        `;
+    });
+}
+
+displayProducts();
+
+// SEARCH
+function searchProduct(){
+    let value = document.getElementById("searchInput").value.toLowerCase();
+    let filtered = products.filter(p=>p.name.toLowerCase().includes(value));
+    displayProducts(filtered);
+}
+
+// ADD PRODUCT
+function addProduct(){
+    let name = prompt("Enter product name:");
+    let price = prompt("Enter price:");
+    let stock = prompt("Enter stock:");
+
+    if(name && price && stock){
+        let newProduct = {
+            id:products.length+1,
+            name:name,
+            category:"Electronics",
+            price:price+"$",
+            stock:Number(stock),
+            image:"https://via.placeholder.com/200x150"
+        };
+
+        products.push(newProduct);
+        localStorage.setItem("products", JSON.stringify(products));
+        displayProducts();
+        alert("Product Added Successfully!");
+    }
+}
+
+// LOGOUT
+function logout(){
+    alert("Logged out!");
+    window.location.href="login.html";
 }
